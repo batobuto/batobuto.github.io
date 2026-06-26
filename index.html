@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bato Buto — Stone Bone</title>
+  <meta name="description" content="A personal fossil collection curated by Tilly's Keeper. Bato Buto means Stone Bone in Tagalog.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --stone-deep: #2D2A26;
+      --stone-mid: #5C554B;
+      --sandstone: #C4A882;
+      --amber: #B8860B;
+      --limestone: #F0EBE1;
+      --bone-white: #FAF8F4;
+      --sage: #6B7F5E;
+      --sediment: #8B7D6B;
+      --fossil-shadow: rgba(44, 40, 36, 0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 400;
+      color: var(--stone-deep);
+      background-color: var(--bone-white);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    header {
+      text-align: center;
+      padding: 5rem 1.5rem 3rem;
+      background: linear-gradient(180deg, var(--limestone) 0%, var(--bone-white) 100%);
+      border-bottom: 1px solid var(--sandstone);
+    }
+
+    .site-tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1rem;
+    }
+
+    .site-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 700;
+      color: var(--stone-deep);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .site-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 3vw, 1.35rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--sediment);
+      margin-bottom: 2rem;
+    }
+
+    .site-description {
+      font-size: 0.95rem;
+      color: var(--stone-mid);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(196, 168, 130, 0.3);
+      position: sticky;
+      top: 0;
+      background: rgba(250, 248, 244, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+
+    nav a {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--stone-mid);
+      text-decoration: none;
+      padding: 0.5rem 0;
+      border-bottom: 1.5px solid transparent;
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--amber);
+      border-bottom-color: var(--amber);
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── ORIGIN STORY SECTION ── */
+    .origin {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      padding: 4rem 0;
+      border-bottom: 1px solid rgba(196, 168, 130, 0.2);
+    }
+
+    .origin-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--stone-deep);
+      margin-bottom: 1rem;
+    }
+
+    .origin-text p {
+      font-size: 0.9rem;
+      color: var(--stone-mid);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .origin-image {
+      aspect-ratio: 1;
+      background-color: var(--limestone);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px solid rgba(196, 168, 130, 0.3);
+    }
+
+    .origin-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .origin-image .placeholder {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--sediment);
+      text-align: center;
+      padding: 2rem;
+    }
+
+    /* ── COLLECTION SECTION ── */
+    .section-header {
+      text-align: center;
+      padding: 4rem 0 2.5rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--stone-deep);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header p {
+      font-size: 0.85rem;
+      color: var(--sediment);
+      font-weight: 300;
+    }
+
+    /* ── SPECIMEN CARDS ── */
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding-bottom: 2rem;
+    }
+
+    .specimen-card {
+      background: white;
+      border: 1px solid rgba(196, 168, 130, 0.25);
+      border-radius: 3px;
+      overflow: hidden;
+      transition: box-shadow 0.3s, transform 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      cursor: pointer;
+    }
+
+    .specimen-card:hover {
+      box-shadow: 0 8px 30px var(--fossil-shadow);
+      transform: translateY(-2px);
+    }
+
+    .specimen-image {
+      aspect-ratio: 4/3;
+      background-color: var(--limestone);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(196, 168, 130, 0.15);
+    }
+
+    .specimen-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .specimen-image .placeholder {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--sediment);
+      font-size: 0.95rem;
+    }
+
+    .specimen-info {
+      padding: 1.25rem 1.5rem 1.5rem;
+    }
+
+    .specimen-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--stone-deep);
+      margin-bottom: 0.15rem;
+    }
+
+    .specimen-species {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+    }
+
+    .specimen-meta {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.25rem 0.75rem;
+      font-size: 0.78rem;
+    }
+
+    .specimen-meta dt {
+      color: var(--sediment);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.65rem;
+      padding-top: 0.1rem;
+    }
+
+    .specimen-meta dd {
+      color: var(--stone-mid);
+    }
+
+    .view-detail {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+
+    /* ── PAGINATION ── */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 2rem 0 4rem;
+      border-bottom: 1px solid rgba(196, 168, 130, 0.2);
+    }
+
+    .pagination button {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border: 1px solid rgba(196, 168, 130, 0.3);
+      background: white;
+      color: var(--stone-mid);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pagination button:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    .pagination button.active {
+      background: var(--stone-deep);
+      color: var(--bone-white);
+      border-color: var(--stone-deep);
+    }
+
+    .pagination button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .pagination .page-info {
+      font-size: 0.75rem;
+      color: var(--sediment);
+      padding: 0 0.75rem;
+      font-weight: 300;
+    }
+
+    /* ── BLOG SECTION ── */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      max-width: 700px;
+      margin: 0 auto;
+      padding-bottom: 4rem;
+    }
+
+    .blog-entry {
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(196, 168, 130, 0.2);
+    }
+
+    .blog-date {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--stone-deep);
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .blog-title a:hover {
+      color: var(--amber);
+    }
+
+    .blog-excerpt {
+      font-size: 0.9rem;
+      color: var(--stone-mid);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    .read-more {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--amber);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    .read-more:hover {
+      border-bottom-color: var(--amber);
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .about h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .about p {
+      font-size: 0.9rem;
+      color: var(--stone-mid);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      font-weight: 300;
+    }
+
+    .about .keeper-sig {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--amber);
+      margin-top: 2rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: var(--limestone);
+      border-top: 1px solid rgba(196, 168, 130, 0.3);
+    }
+
+    .footer-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--stone-deep);
+      margin-bottom: 0.25rem;
+    }
+
+    .footer-note {
+      font-size: 0.75rem;
+      color: var(--sediment);
+      font-weight: 300;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      header { padding: 3.5rem 1.5rem 2.5rem; }
+      .origin { grid-template-columns: 1fr; gap: 2rem; }
+      .origin-image { max-height: 300px; }
+      .collection-grid { grid-template-columns: 1fr; }
+      nav { gap: 1.25rem; }
+      nav a { font-size: 0.68rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="site-tag">A personal fossil collection</div>
+    <h1 class="site-title">Bato Buto</h1>
+    <p class="site-subtitle">Stone Bone — curated by Tilly's Keeper</p>
+    <p class="site-description">
+      A growing collection of fossils, each one millions of years in the making.
+      Named for the Tagalog words for stone and bone — because that's all a fossil really is.
+      Deep time, held in your hands.
+    </p>
+  </header>
+
+  <nav>
+    <a href="#collection" class="active">Collection</a>
+    <a href="#journal">Journal</a>
+    <a href="#about">About</a>
+  </nav>
+
+  <main>
+
+    <!-- Origin Story -->
+    <section class="origin" id="origin">
+      <div class="origin-text">
+        <h2>It started with Tilly.</h2>
+        <p>
+          March 19, 2022. The Smithsonian gift shop. A small trilobite
+          sitting in a white box — half a billion years old,
+          waiting for someone to take her home.
+        </p>
+        <p>
+          I didn't know she'd be the start of something.
+          I just knew I couldn't leave her there.
+        </p>
+        <p>
+          Now she sits at the center of a growing collection,
+          surrounded by ancient fish, ammonites, and a tooth
+          from a shark that ruled oceans before humans existed.
+          She's still the smallest. She's still the first.
+        </p>
+      </div>
+      <div class="origin-image">
+        <div class="placeholder">[ Photo of Tilly ]</div>
+      </div>
+    </section>
+
+    <!-- Collection -->
+    <section id="collection">
+      <div class="section-header">
+        <h2>The Collection</h2>
+        <p>Each specimen cataloged with its age, formation, and origin — click any specimen to learn more</p>
+      </div>
+
+      <div class="collection-grid" id="collectionGrid"></div>
+      <div class="pagination" id="pagination"></div>
+    </section>
+
+    <!-- Journal / Blog -->
+    <section id="journal">
+      <div class="section-header">
+        <h2>Field Journal</h2>
+        <p>Notes, stories, and discoveries along the way</p>
+      </div>
+
+      <div class="blog-grid">
+        <article class="blog-entry">
+          <p class="blog-date">June 2026</p>
+          <h3 class="blog-title"><a href="#">The Museum on the Kitchen Counter</a></h3>
+          <p class="blog-excerpt">
+            It started as a delivery of fossils and ended with informational cards,
+            QR codes, and a trilobite from 2022 finally getting the display she deserved.
+            How a kitchen counter became a natural history exhibit.
+          </p>
+          <a href="#" class="read-more">Read entry →</a>
+        </article>
+
+        <article class="blog-entry">
+          <p class="blog-date">March 2022</p>
+          <h3 class="blog-title"><a href="#">How I Met Tilly</a></h3>
+          <p class="blog-excerpt">
+            She was sitting in a white box at the Smithsonian gift shop.
+            Half a billion years old. Twelve dollars.
+            I didn't know she'd change everything.
+          </p>
+          <a href="#" class="read-more">Read entry →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="about">
+        <h2>About Tilly's Keeper</h2>
+        <p>
+          I'm a fossil collector, lifelong dreamer, and the kind of person who
+          makes museum-quality informational cards for specimens on her kitchen counter.
+          I believe that holding something millions of years old is the closest
+          we get to touching deep time — and that everyone deserves
+          to feel that kind of wonder.
+        </p>
+        <p>
+          <em>Bato Buto</em> is Tagalog for "Stone Bone" — which is really all
+          a fossil is. This site is where I document a growing collection
+          and the stories each specimen carries.
+        </p>
+        <p>
+          Future plans include joining the Natural History Society of Maryland,
+          fossil hunting at Calvert Cliffs, and filling a display case in
+          an apartment that's entirely my own.
+        </p>
+        <p class="keeper-sig">— Tilly's Keeper 🦣</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p class="footer-title">Bato Buto</p>
+    <p class="footer-note">A fossil collection by Tilly's Keeper · Est. 2022</p>
+  </footer>
+
+  <script>
+    // ═══════════════════════════════════════════════════════
+    // FOSSIL DATA — Add new specimens to this array!
+    // Each fossil needs: name, species, page (link to detail
+    // page), image (path to photo), and any meta fields.
+    // ═══════════════════════════════════════════════════════
+    const specimens = [
+      {
+        name: "Tilly",
+        species: "Trilobite",
+        page: "specimens/tilly.html",
+        image: null, // Replace with: "images/tilly.jpg"
+        meta: {
+          "Age": "~450–500 million years",
+          "Origin": "Smithsonian Gift Shop, 3/19/2022",
+          "Notes": "The OG. The one that started it all."
+        }
+      },
+      {
+        name: "Zip",
+        species: "Diplomystus dentatus",
+        page: "specimens/zip.html",
+        image: null,
+        meta: {
+          "Age": "Eocene (~50 million years)",
+          "Formation": "Green River Formation",
+          "Location": "Fossil Lake, Kemmerer, Wyoming"
+        }
+      },
+      {
+        name: "Slip",
+        species: "Knightia eocaena",
+        page: "specimens/slip.html",
+        image: null,
+        meta: {
+          "Age": "Eocene (~50 million years)",
+          "Formation": "Green River Formation",
+          "Location": "Fossil Lake, Kemmerer, Wyoming"
+        }
+      },
+      {
+        name: "Tiny 1 & Tiny 2",
+        species: "Ammonite (split halves)",
+        page: "specimens/tiny.html",
+        image: null,
+        meta: {
+          "Age": "Mesozoic",
+          "Notes": "Two halves of one ancient creature — separated but still connected."
+        }
+      },
+      {
+        name: "Stitch",
+        species: "Ammonite (whole, polished)",
+        page: "specimens/stitch.html",
+        image: null,
+        meta: {
+          "Age": "Mesozoic",
+          "Notes": "Polished to reveal the suture patterns inside."
+        }
+      },
+      {
+        name: "Megalodon Tooth",
+        species: "Otodus megalodon",
+        page: "specimens/megalodon.html",
+        image: null,
+        meta: {
+          "Age": "Miocene",
+          "Formation": "Hawthorn Formation",
+          "Location": "River, South Carolina"
+        }
+      },
+      {
+        name: "Petrified Wood Round",
+        species: "Unidentified",
+        page: "specimens/petrified-wood-round.html",
+        image: null,
+        meta: {
+          "Age": "Late Cretaceous (~70 million years)",
+          "Location": "Tarkio, Texas"
+        }
+      },
+      {
+        name: "Shipworm-Bored Wood",
+        species: "Teredolites longissimus",
+        page: "specimens/shipworm-wood.html",
+        image: null,
+        meta: {
+          "Age": "Eocene (~52 million years)",
+          "Formation": "London Clay Formation",
+          "Location": "Isle of Sheppey, Kent, England"
+        }
+      },
+      {
+        name: "Polished Wood Turtle",
+        species: "Sycamore",
+        page: "specimens/wood-turtle.html",
+        image: null,
+        meta: {
+          "Location": "Nevada"
+        }
+      },
+      {
+        name: "Perisphinctes Ammonite",
+        species: "Perisphinctes sp.",
+        page: "specimens/perisphinctes.html",
+        image: null,
+        meta: {
+          "Age": "Jurassic",
+          "Location": "France"
+        }
+      },
+      {
+        name: "Cleoniceras Ammonite",
+        species: "Cleoniceras sp.",
+        page: "specimens/cleoniceras.html",
+        image: null,
+        meta: {
+          "Age": "Albian Stage (~110 MYA)",
+          "Location": "Ambatolafia, Mahajanga Province, Madagascar"
+        }
+      },
+      {
+        name: "Polished Cleoniceras",
+        species: "Cleoniceras sp.",
+        page: "specimens/cleoniceras-polished.html",
+        image: null,
+        meta: {
+          "Age": "Albian Stage (~110 MYA)",
+          "Location": "Ambatolafia, Mahajanga Province, Madagascar",
+          "Notes": "Polished to reveal the inner chamber structure."
+        }
+      }
+    ];
+
+    // ═══════════════════════════════════════════════════════
+    // PAGINATION CONFIG — Change this number to show more
+    // or fewer specimens per page
+    // ═══════════════════════════════════════════════════════
+    const ITEMS_PER_PAGE = 9;
+    let currentPage = 1;
+
+    function getTotalPages() {
+      return Math.ceil(specimens.length / ITEMS_PER_PAGE);
+    }
+
+    function renderCollection(page) {
+      const grid = document.getElementById('collectionGrid');
+      const start = (page - 1) * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
+      const pageItems = specimens.slice(start, end);
+
+      grid.innerHTML = pageItems.map(spec => `
+        <a class="specimen-card" href="${spec.page}">
+          <div class="specimen-image">
+            ${spec.image
+              ? `<img src="${spec.image}" alt="${spec.name}" loading="lazy">`
+              : `<span class="placeholder">[ Photo ]</span>`
+            }
+          </div>
+          <div class="specimen-info">
+            <h3 class="specimen-name">${spec.name}</h3>
+            <p class="specimen-species">${spec.species}</p>
+            <dl class="specimen-meta">
+              ${Object.entries(spec.meta).map(([key, val]) => `
+                <dt>${key}</dt>
+                <dd>${val}</dd>
+              `).join('')}
+            </dl>
+            <span class="view-detail">View specimen →</span>
+          </div>
+        </a>
+      `).join('');
+
+      renderPagination(page);
+    }
+
+    function renderPagination(page) {
+      const totalPages = getTotalPages();
+      const container = document.getElementById('pagination');
+
+      if (totalPages <= 1) {
+        container.innerHTML = '';
+        return;
+      }
+
+      let html = `<button onclick="goToPage(${page - 1})" ${page === 1 ? 'disabled' : ''}>← Prev</button>`;
+
+      for (let i = 1; i <= totalPages; i++) {
+        html += `<button onclick="goToPage(${i})" class="${i === page ? 'active' : ''}">${i}</button>`;
+      }
+
+      html += `<span class="page-info">${specimens.length} specimens</span>`;
+      html += `<button onclick="goToPage(${page + 1})" ${page === totalPages ? 'disabled' : ''}>Next →</button>`;
+
+      container.innerHTML = html;
+    }
+
+    function goToPage(page) {
+      const totalPages = getTotalPages();
+      if (page < 1 || page > totalPages) return;
+      currentPage = page;
+      renderCollection(page);
+      document.getElementById('collection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Initial render
+    renderCollection(1);
+  </script>
+
+</body>
+</html>
