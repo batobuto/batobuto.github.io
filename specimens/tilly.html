@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tilly — Bato Buto</title>
+  <meta name="description" content="Tilly the trilobite. The first specimen in the Bato Buto collection, acquired at the Smithsonian in 2022.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --stone-deep: #2D2A26;
+      --stone-mid: #5C554B;
+      --sandstone: #C4A882;
+      --amber: #B8860B;
+      --limestone: #F0EBE1;
+      --bone-white: #FAF8F4;
+      --sage: #6B7F5E;
+      --sediment: #8B7D6B;
+      --fossil-shadow: rgba(44, 40, 36, 0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 400;
+      color: var(--stone-deep);
+      background-color: var(--bone-white);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid rgba(196, 168, 130, 0.3);
+      background: rgba(250, 248, 244, 0.95);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .site-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--stone-deep);
+      text-decoration: none;
+    }
+
+    nav .back-link {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--stone-mid);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav .back-link:hover { color: var(--amber); }
+
+    /* ── SPECIMEN HERO ── */
+    .specimen-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .hero-image {
+      aspect-ratio: 1;
+      background-color: var(--limestone);
+      border-radius: 4px;
+      border: 1px solid rgba(196, 168, 130, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-image .placeholder {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--sediment);
+      font-size: 1.1rem;
+    }
+
+    .hero-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-details .specimen-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-details h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--stone-deep);
+      line-height: 1.1;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-details .species-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--amber);
+      margin-bottom: 2rem;
+    }
+
+    .hero-details .data-table {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.5rem 1.25rem;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(196, 168, 130, 0.2);
+      padding-top: 1.5rem;
+    }
+
+    .data-table dt {
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.7rem;
+      color: var(--sediment);
+      padding-top: 0.15rem;
+    }
+
+    .data-table dd {
+      color: var(--stone-mid);
+    }
+
+    /* ── CONTENT BODY ── */
+    .specimen-body {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    .specimen-body h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--stone-deep);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(196, 168, 130, 0.15);
+    }
+
+    .specimen-body h2:first-child {
+      margin-top: 0;
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .specimen-body p {
+      font-size: 0.92rem;
+      color: var(--stone-mid);
+      line-height: 1.85;
+      margin-bottom: 1.25rem;
+      font-weight: 300;
+    }
+
+    .specimen-body .life-image {
+      width: 100%;
+      margin: 2rem 0;
+      border-radius: 4px;
+      border: 1px solid rgba(196, 168, 130, 0.2);
+      overflow: hidden;
+    }
+
+    .specimen-body .life-image img {
+      width: 100%;
+      display: block;
+    }
+
+    .specimen-body .image-caption {
+      font-size: 0.75rem;
+      color: var(--sediment);
+      font-style: italic;
+      margin-top: -1.25rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .specimen-body .fun-fact {
+      background: var(--limestone);
+      border-left: 3px solid var(--amber);
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .specimen-body .fun-fact p {
+      margin-bottom: 0;
+      font-weight: 400;
+      color: var(--stone-deep);
+    }
+
+    /* ── NAVIGATION BETWEEN SPECIMENS ── */
+    .specimen-nav {
+      display: flex;
+      justify-content: space-between;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+      border-top: 1px solid rgba(196, 168, 130, 0.2);
+    }
+
+    .specimen-nav a {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--amber);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .specimen-nav a:hover { color: var(--stone-deep); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: var(--limestone);
+      border-top: 1px solid rgba(196, 168, 130, 0.3);
+    }
+
+    .footer-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--stone-deep);
+      margin-bottom: 0.25rem;
+    }
+
+    .footer-note {
+      font-size: 0.75rem;
+      color: var(--sediment);
+      font-weight: 300;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .specimen-hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem 1.5rem;
+      }
+      .hero-image { max-height: 350px; }
+      .specimen-body { padding: 2rem 1.5rem 3rem; }
+      .specimen-nav { padding: 2rem 1.5rem 3rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="site-name">Bato Buto</a>
+    <a href="../index.html#collection" class="back-link">← Back to Collection</a>
+  </nav>
+
+  <!-- ════════════════════════════════════════════════════
+       HERO SECTION — Your fossil's photo and vital stats
+       ════════════════════════════════════════════════════ -->
+  <section class="specimen-hero">
+    <div class="hero-image">
+      <!-- Replace with: <img src="../images/tilly.jpg" alt="Tilly the trilobite"> -->
+      <span class="placeholder">[ Photo of Tilly ]</span>
+    </div>
+
+    <div class="hero-details">
+      <span class="specimen-tag">Specimen #001</span>
+      <h1>Tilly</h1>
+      <p class="species-name">Trilobite</p>
+
+      <dl class="data-table">
+        <dt>Age</dt>
+        <dd>~450–500 million years (Ordovician–Devonian)</dd>
+
+        <dt>Classification</dt>
+        <dd>Phylum Arthropoda, Class Trilobita</dd>
+
+        <dt>Acquired</dt>
+        <dd>March 19, 2022 — Smithsonian Gift Shop</dd>
+
+        <dt>Status</dt>
+        <dd>The OG. Collection founder. Permanent center display.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+       BODY — Write about this creature as it was in life,
+       add public domain images, fun facts, anything!
+       ════════════════════════════════════════════════════ -->
+  <section class="specimen-body">
+
+    <h2>Life in the Ancient Seas</h2>
+    <p>
+      Long before dinosaurs, before trees, before almost anything we'd recognize
+      as life on land — trilobites ruled the oceans. For nearly 300 million years,
+      they crawled across ancient seafloors, some as small as a grain of rice,
+      others stretching over two feet long.
+    </p>
+    <p>
+      They were among the first animals to develop complex compound eyes,
+      made of calcite crystals — essentially lenses carved from stone,
+      hundreds of millions of years before humans ground their first lens.
+      Some species had eyes with over 15,000 individual lenses.
+    </p>
+
+    <!-- Public domain image example -->
+    <div class="life-image">
+      <!-- Replace src with a public domain illustration -->
+      <!-- Good sources: Wikimedia Commons, Biodiversity Heritage Library, Smithsonian Open Access -->
+      <!-- Example: <img src="../images/trilobite-illustration.jpg" alt="Illustration of trilobites on the Ordovician seafloor"> -->
+    </div>
+    <p class="image-caption">
+      Illustration of trilobites on the Ordovician seafloor. Source: Wikimedia Commons, public domain.
+    </p>
+
+    <p>
+      Trilobites were arthropods — relatives of modern crabs, spiders, and insects.
+      They could roll into balls for protection, like modern pill bugs.
+      They molted their exoskeletons as they grew, which is why trilobite
+      fossils are so common — each animal left behind many shells in a lifetime.
+    </p>
+
+    <div class="fun-fact">
+      <p>
+        🦣 <strong>Deep time moment:</strong> Trilobites went extinct about
+        252 million years ago during the Great Dying — the largest mass
+        extinction in Earth's history, which wiped out 96% of marine species.
+        Tilly's ancestors survived four other mass extinctions before that.
+        She comes from tough stock.
+      </p>
+    </div>
+
+    <h2>How She Joined the Collection</h2>
+    <p>
+      March 19, 2022. The Smithsonian National Museum of Natural History gift
+      shop. A small white box with a handwritten label. Twelve dollars.
+      She fit in the palm of my hand — half a billion years of existence
+      reduced to something I could carry home on the Metro.
+    </p>
+    <p>
+      I didn't know then that she'd be the beginning of anything. She sat on
+      my desk for years, quietly. It wasn't until 2026 that she got company —
+      and suddenly she wasn't alone anymore. She was the founding specimen
+      of something real.
+    </p>
+    <p>
+      She's still the smallest thing in the collection. She still has her
+      original handwritten box. She doesn't need a printed card — she
+      predates the whole system. She's grandfathered in.
+    </p>
+
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+       NAVIGATION — Link to previous/next specimens
+       ════════════════════════════════════════════════════ -->
+  <section class="specimen-nav">
+    <span></span> <!-- Empty span for spacing since Tilly is first -->
+    <a href="zip.html">Next: Zip →</a>
+  </section>
+
+  <footer>
+    <p class="footer-title">Bato Buto</p>
+    <p class="footer-note">A fossil collection by Tilly's Keeper · Est. 2022</p>
+  </footer>
+
+</body>
+</html>
