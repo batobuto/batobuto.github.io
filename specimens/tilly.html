@@ -78,28 +78,108 @@
       padding: 3rem 2rem;
     }
 
-    .hero-image {
+    /* ── CAROUSEL ── */
+    .carousel {
+      position: relative;
       aspect-ratio: 1;
       background-color: var(--limestone);
       border-radius: 4px;
       border: 1px solid rgba(196, 168, 130, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
       overflow: hidden;
     }
 
-    .hero-image img {
+    .carousel-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.4s ease;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .hero-image .placeholder {
+    .carousel-slide .placeholder {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       color: var(--sediment);
       font-size: 1.1rem;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(250, 248, 244, 0.9);
+      color: var(--stone-deep);
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+
+    .carousel-btn:hover {
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .carousel-btn.prev { left: 0.75rem; }
+    .carousel-btn.next { right: 0.75rem; }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.4rem;
+      z-index: 10;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(250, 248, 244, 0.9);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0;
+    }
+
+    .carousel-dot.active {
+      background: rgba(250, 248, 244, 0.9);
+    }
+
+    /* Hide controls if only one image */
+    .carousel.single .carousel-btn,
+    .carousel.single .carousel-dots {
+      display: none;
+    }
+
+    .carousel-caption {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--sediment);
+      font-style: italic;
+      margin-top: 0.5rem;
     }
 
     .hero-details {
@@ -275,7 +355,7 @@
         gap: 2rem;
         padding: 2rem 1.5rem;
       }
-      .hero-image { max-height: 350px; }
+      .carousel { max-height: 350px; }
       .specimen-body { padding: 2rem 1.5rem 3rem; }
       .specimen-nav { padding: 2rem 1.5rem 3rem; }
     }
@@ -293,13 +373,37 @@
   </nav>
 
   <!-- ════════════════════════════════════════════════════
-       HERO SECTION — Your fossil's photo and vital stats
+       HERO SECTION — Carousel + vital stats
        ════════════════════════════════════════════════════ -->
   <section class="specimen-hero">
-    <div class="hero-image">
-      <!-- Replace with: <img src="../images/tilly.jpg" alt="Tilly the trilobite"> -->
-      <span class="placeholder">[ Photo of Tilly ]</span>
+
+    <!-- ✏️ CAROUSEL — Add/remove slides as needed.
+         For a single photo, just keep one carousel-slide.
+         The controls auto-hide when there's only one image. -->
+    <div class="carousel" id="heroCarousel">
+      <div class="carousel-track" id="carouselTrack">
+
+        <div class="carousel-slide">
+          <!-- Replace with: <img src="../images/tilly-front.jpg" alt="Tilly the trilobite — front view"> -->
+          <span class="placeholder">[ Front view ]</span>
+        </div>
+
+        <div class="carousel-slide">
+          <!-- Replace with: <img src="../images/tilly-side.jpg" alt="Tilly — side profile showing segmentation"> -->
+          <span class="placeholder">[ Side view ]</span>
+        </div>
+
+        <div class="carousel-slide">
+          <!-- Replace with: <img src="../images/tilly-box.jpg" alt="Tilly in her original Smithsonian box"> -->
+          <span class="placeholder">[ Original box ]</span>
+        </div>
+
+      </div>
+      <button class="carousel-btn prev" onclick="moveSlide(-1)" aria-label="Previous image">&#8249;</button>
+      <button class="carousel-btn next" onclick="moveSlide(1)" aria-label="Next image">&#8250;</button>
+      <div class="carousel-dots" id="carouselDots"></div>
     </div>
+    <p class="carousel-caption" id="carouselCaption"></p>
 
     <div class="hero-details">
       <span class="specimen-tag">Specimen #001</span>
@@ -323,8 +427,7 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════
-       BODY — Write about this creature as it was in life,
-       add public domain images, fun facts, anything!
+       BODY — Write about this creature as it was in life
        ════════════════════════════════════════════════════ -->
   <section class="specimen-body">
 
@@ -390,11 +493,8 @@
 
   </section>
 
-  <!-- ════════════════════════════════════════════════════
-       NAVIGATION — Link to previous/next specimens
-       ════════════════════════════════════════════════════ -->
   <section class="specimen-nav">
-    <span></span> <!-- Empty span for spacing since Tilly is first -->
+    <span></span>
     <a href="zip.html">Next: Zip →</a>
   </section>
 
@@ -402,6 +502,69 @@
     <p class="footer-title">Bato Buto</p>
     <p class="footer-note">A fossil collection by Tilly's Keeper · Est. 2022</p>
   </footer>
+
+  <script>
+    // ═══════════════════════════════════════════════════════
+    // CAROUSEL
+    // ═══════════════════════════════════════════════════════
+    const track = document.getElementById('carouselTrack');
+    const carousel = document.getElementById('heroCarousel');
+    const dotsContainer = document.getElementById('carouselDots');
+    const slides = track.querySelectorAll('.carousel-slide');
+    let currentSlide = 0;
+
+    // Auto-hide controls for single image
+    if (slides.length <= 1) {
+      carousel.classList.add('single');
+    }
+
+    // Build dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.classList.add('carousel-dot');
+      if (i === 0) dot.classList.add('active');
+      dot.setAttribute('aria-label', `Go to image ${i + 1}`);
+      dot.onclick = () => goToSlide(i);
+      dotsContainer.appendChild(dot);
+    });
+
+    function goToSlide(index) {
+      currentSlide = index;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+
+    function moveSlide(direction) {
+      let next = currentSlide + direction;
+      if (next < 0) next = slides.length - 1;
+      if (next >= slides.length) next = 0;
+      goToSlide(next);
+    }
+
+    // Keyboard navigation
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') moveSlide(-1);
+      if (e.key === 'ArrowRight') moveSlide(1);
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        moveSlide(diff > 0 ? 1 : -1);
+      }
+    }, { passive: true });
+  </script>
 
 </body>
 </html>
