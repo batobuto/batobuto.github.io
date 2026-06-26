@@ -188,6 +188,89 @@
       font-weight: 300;
     }
 
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding-bottom: 2rem;
+    }
+
+    .filter-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem 0.85rem;
+      border: 1px solid rgba(196, 168, 130, 0.3);
+      border-radius: 20px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--stone-mid);
+      user-select: none;
+    }
+
+    .filter-tag:hover {
+      border-color: var(--sandstone);
+      color: var(--stone-deep);
+    }
+
+    .filter-tag.active {
+      background: var(--stone-deep);
+      border-color: var(--stone-deep);
+      color: var(--bone-white);
+    }
+
+    .filter-tag input {
+      display: none;
+    }
+
+    .filter-tag .check-icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1.5px solid rgba(196, 168, 130, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .filter-tag.active .check-icon {
+      background: var(--amber);
+      border-color: var(--amber);
+    }
+
+    .filter-tag.active .check-icon::after {
+      content: '✓';
+      font-size: 0.55rem;
+      color: white;
+      line-height: 1;
+    }
+
+    .filter-count {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--sediment);
+      font-weight: 300;
+      padding-bottom: 1.5rem;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 3rem 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--sediment);
+    }
+
     /* ── SPECIMEN CARDS ── */
     .collection-grid {
       display: grid;
@@ -519,6 +602,8 @@
         <p>Each specimen cataloged with its age, formation, and origin — click any specimen to learn more</p>
       </div>
 
+      <div class="filter-bar" id="filterBar"></div>
+      <div class="filter-count" id="filterCount"></div>
       <div class="collection-grid" id="collectionGrid"></div>
       <div class="pagination" id="pagination"></div>
     </section>
@@ -590,13 +675,14 @@
   <script>
     // ═══════════════════════════════════════════════════════
     // FOSSIL DATA — Add new specimens to this array!
-    // Each fossil needs: name, species, page (link to detail
-    // page), image (path to photo), and any meta fields.
+    // Each fossil needs: name, species, tags, page, image, meta.
+    // Tags are used for the filter bar — add as many as apply.
     // ═══════════════════════════════════════════════════════
     const specimens = [
       {
         name: "Tilly",
         species: "Trilobite",
+        tags: ["Trilobite"],
         page: "specimens/tilly.html",
         image: null, // Replace with: "images/tilly.jpg"
         meta: {
@@ -608,6 +694,7 @@
       {
         name: "Zip",
         species: "Diplomystus dentatus",
+        tags: ["Fish"],
         page: "specimens/zip.html",
         image: null,
         meta: {
@@ -619,6 +706,7 @@
       {
         name: "Slip",
         species: "Knightia eocaena",
+        tags: ["Fish"],
         page: "specimens/slip.html",
         image: null,
         meta: {
@@ -630,6 +718,7 @@
       {
         name: "Tiny 1 & Tiny 2",
         species: "Ammonite (split halves)",
+        tags: ["Ammonite"],
         page: "specimens/tiny.html",
         image: null,
         meta: {
@@ -640,6 +729,7 @@
       {
         name: "Stitch",
         species: "Ammonite (whole, polished)",
+        tags: ["Ammonite"],
         page: "specimens/stitch.html",
         image: null,
         meta: {
@@ -650,6 +740,7 @@
       {
         name: "Megalodon Tooth",
         species: "Otodus megalodon",
+        tags: ["Shark Tooth"],
         page: "specimens/megalodon.html",
         image: null,
         meta: {
@@ -661,6 +752,7 @@
       {
         name: "Petrified Wood Round",
         species: "Unidentified",
+        tags: ["Petrified Wood"],
         page: "specimens/petrified-wood-round.html",
         image: null,
         meta: {
@@ -671,6 +763,7 @@
       {
         name: "Shipworm-Bored Wood",
         species: "Teredolites longissimus",
+        tags: ["Petrified Wood"],
         page: "specimens/shipworm-wood.html",
         image: null,
         meta: {
@@ -682,6 +775,7 @@
       {
         name: "Polished Wood Turtle",
         species: "Sycamore",
+        tags: ["Petrified Wood"],
         page: "specimens/wood-turtle.html",
         image: null,
         meta: {
@@ -691,6 +785,7 @@
       {
         name: "Perisphinctes Ammonite",
         species: "Perisphinctes sp.",
+        tags: ["Ammonite"],
         page: "specimens/perisphinctes.html",
         image: null,
         meta: {
@@ -701,6 +796,7 @@
       {
         name: "Cleoniceras Ammonite",
         species: "Cleoniceras sp.",
+        tags: ["Ammonite"],
         page: "specimens/cleoniceras.html",
         image: null,
         meta: {
@@ -711,6 +807,7 @@
       {
         name: "Polished Cleoniceras",
         species: "Cleoniceras sp.",
+        tags: ["Ammonite"],
         page: "specimens/cleoniceras-polished.html",
         image: null,
         meta: {
@@ -722,21 +819,76 @@
     ];
 
     // ═══════════════════════════════════════════════════════
-    // PAGINATION CONFIG — Change this number to show more
-    // or fewer specimens per page
+    // PAGINATION & FILTER CONFIG
     // ═══════════════════════════════════════════════════════
     const ITEMS_PER_PAGE = 9;
     let currentPage = 1;
+    let activeTags = new Set();
 
-    function getTotalPages() {
-      return Math.ceil(specimens.length / ITEMS_PER_PAGE);
+    // Build the tag list automatically from specimen data
+    const allTags = [...new Set(specimens.flatMap(s => s.tags))].sort();
+
+    function getFilteredSpecimens() {
+      if (activeTags.size === 0) return specimens;
+      return specimens.filter(s => s.tags.some(t => activeTags.has(t)));
     }
 
+    function getTotalPages() {
+      return Math.ceil(getFilteredSpecimens().length / ITEMS_PER_PAGE);
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // FILTER BAR
+    // ═══════════════════════════════════════════════════════
+    function renderFilterBar() {
+      const bar = document.getElementById('filterBar');
+      bar.innerHTML = allTags.map(tag => {
+        const count = specimens.filter(s => s.tags.includes(tag)).length;
+        const isActive = activeTags.has(tag);
+        return `
+          <label class="filter-tag ${isActive ? 'active' : ''}">
+            <input type="checkbox" ${isActive ? 'checked' : ''} onchange="toggleTag('${tag}')">
+            <span class="check-icon"></span>
+            ${tag} (${count})
+          </label>
+        `;
+      }).join('');
+    }
+
+    function toggleTag(tag) {
+      if (activeTags.has(tag)) {
+        activeTags.delete(tag);
+      } else {
+        activeTags.add(tag);
+      }
+      currentPage = 1;
+      renderFilterBar();
+      renderCollection(1);
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // COLLECTION GRID
+    // ═══════════════════════════════════════════════════════
     function renderCollection(page) {
       const grid = document.getElementById('collectionGrid');
+      const filtered = getFilteredSpecimens();
       const start = (page - 1) * ITEMS_PER_PAGE;
       const end = start + ITEMS_PER_PAGE;
-      const pageItems = specimens.slice(start, end);
+      const pageItems = filtered.slice(start, end);
+
+      // Update count
+      const countEl = document.getElementById('filterCount');
+      if (activeTags.size > 0) {
+        countEl.textContent = `Showing ${filtered.length} of ${specimens.length} specimens`;
+      } else {
+        countEl.textContent = `${specimens.length} specimens`;
+      }
+
+      if (pageItems.length === 0) {
+        grid.innerHTML = '<div class="no-results">No specimens match the selected filters.</div>';
+        document.getElementById('pagination').innerHTML = '';
+        return;
+      }
 
       grid.innerHTML = pageItems.map(spec => `
         <a class="specimen-card" href="${spec.page}">
@@ -764,7 +916,8 @@
     }
 
     function renderPagination(page) {
-      const totalPages = getTotalPages();
+      const filtered = getFilteredSpecimens();
+      const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
       const container = document.getElementById('pagination');
 
       if (totalPages <= 1) {
@@ -778,7 +931,6 @@
         html += `<button onclick="goToPage(${i})" class="${i === page ? 'active' : ''}">${i}</button>`;
       }
 
-      html += `<span class="page-info">${specimens.length} specimens</span>`;
       html += `<button onclick="goToPage(${page + 1})" ${page === totalPages ? 'disabled' : ''}>Next →</button>`;
 
       container.innerHTML = html;
@@ -793,6 +945,7 @@
     }
 
     // Initial render
+    renderFilterBar();
     renderCollection(1);
   </script>
 
